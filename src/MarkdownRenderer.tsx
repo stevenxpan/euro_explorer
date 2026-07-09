@@ -9,7 +9,21 @@ interface MarkdownRendererProps {
 const MarkdownRenderer = ({ content }: MarkdownRendererProps) => {
   return (
     <div className="prose lg:prose-xl">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>{content}</ReactMarkdown>
+      <ReactMarkdown 
+        remarkPlugins={[remarkGfm]}
+        rehypePlugins={[rehypeRaw]}
+        components={{
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          img: ({ node, ...props }) => (
+            <img
+              {...props}
+              style={{ maxHeight: "80vh", maxWidth: "100%", width: "auto" }}
+            />
+          ),
+        }}
+      >
+        {content}
+      </ReactMarkdown>
     </div>
   );
 };
